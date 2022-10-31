@@ -1,0 +1,29 @@
+ideas
+-Jefe dsps de x puntos. mob gigante izquierda a derecha?
+-Cartel de lv 2.
+- power ups
+
+NIvel 1 oleadas
+Nivel 2 boss grandote.
+fondo que se mueva?
+
+https://www.youtube.com/watch?v=rQXvDDoXvLo&list=PLRN2Qvxmju0Mf1GB1hXsT-x1GQJQ0pwE0&index=5
+
+
+Menu.
+Interfaz.
+order in layer fondo.
+
+
+historia?
+virus , tiras alcohol en gel.
+?
+
+pizzero, gente hambrienta?.
+
+Object pooling para balas.
+object pooling enemigos?
+Object pooling balas enemigos.
+
+
+
