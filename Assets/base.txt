@@ -1,11 +1,14 @@
 ideas
 -Jefe dsps de x puntos. mob gigante izquierda a derecha?
 -Cartel de lv 2.
-- power ups
+- power ups  CURITA Y ESCUDO, 
+Invul time.
 
 NIvel 1 oleadas
 Nivel 2 boss grandote.
-fondo que se mueva?
+fondo que se mueva? Particulas
+
+hacer que hereden de una clase pickup o algo ??
 
 
 Menu.
@@ -13,15 +16,7 @@ Interfaz.
 order in layer fondo.
 
 
-historia?
-virus , tiras alcohol en gel.
-?
-
-pizzero, gente hambrienta?.
-
 Object pooling para balas.
-object pooling enemigos?
-Object pooling balas enemigos.
 
 
 

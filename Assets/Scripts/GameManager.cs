@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
     // Para los power ups
     public GameObject naftaPrefab;
 
+    // Estado del player para que lo vean los enemigos.
+    [SerializeField] bool isThePlayerInvul = false;
+
     void Awake()
     {
         //If this script does not exit already, use this current instance
@@ -65,6 +68,21 @@ public class GameManager : MonoBehaviour
             GameObject bidon = Instantiate(naftaPrefab);
             // Movemos el transform.
             bidon.transform.position = whereTo.position;
+        }
+    }
+
+    public bool TogglePlayerInvul()
+    {
+        isThePlayerInvul = !isThePlayerInvul;
+        //Debug.Log("Invul state>" + isThePlayerInvul);
+        return isThePlayerInvul;
+    }
+
+    public bool CheckPlayerInvulneravility(){
+        if(isThePlayerInvul){
+            return true;
+        }  else {
+            return false;
         }
     }
 }

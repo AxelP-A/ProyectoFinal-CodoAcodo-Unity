@@ -10,6 +10,13 @@ public class Player : MonoBehaviour
 
     // Para el Hp
     public int life = 3;
+    [HideInInspector] public int startingHP;
+    // Cuantos escudos tiene el player.
+    public int shieldAmmount = 0;
+    // Si esta en invul frames.
+    [SerializeField] float invulTime;
+    BlinkEffect blinkScript;
+    // Corazoncitos
     [SerializeField] int heartsQuantity;
     [SerializeField] Image[] hearts;
     [SerializeField] Sprite fullHeart;
@@ -31,12 +38,15 @@ public class Player : MonoBehaviour
     void Awake()
 	{
         HeartsController(); // Seteamos los sprites de salud.
+        blinkScript = GetComponent<BlinkEffect>();
     }
 
     void Start(){
         // Agarramos la altura del player basado en su transform scale.
         width = transform.localScale.x + offset;
         height = transform.localScale.y + offset;
+        // Este valor se usa para saber cuando spawnear un shield o una curita.
+        startingHP = life;
     }
 
     void Move(Vector2 direction){
@@ -93,24 +103,44 @@ public class Player : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col){
         // Nos fijamos si choco contra otra nave o una bala enemiga.
         if( col.tag.Equals("EBullet") || col.tag.Equals("Enemy")){
+            if(!GameManager.instance.CheckPlayerInvulneravility()){ // Si no esta en invul frames, le hacemos da;o.
+                TakeDamage(col);
+            }
+        }
+    }
+
+    void TakeDamage(Collider2D col){
+        //Trigger temporary invul
+        if(triggerInvul==null){
+            triggerInvul = StartCoroutine(TriggerInvul());
+        }
+
+        // SI tiene escudos
+        if(shieldAmmount > 0){ 
+            shieldAmmount -= 1;
+            if(shieldAmmount == 0){ // Si se le acaban
+                PickUpManager.instance.RemoveShield();
+            }
+        } else {
             // Le quitamos hp y updateamos el canvas.
             life--;
             HeartsController();
-            // Destuimos la bala.
-            Destroy(col.gameObject);
-
-            if(life <= 0) // Si llega a 0
-            {   
-                // Mostramos la explosion
-                GameManager.instance.PlayExplotion(transform.position, new Color(255, 0, 0, 255));
-                VFXController.instance.PlayGameOverSound();
-                Destroy(gameObject);
-                Debug.Log("Perdiste");
-            } else {
-                // Indicador sonoro de hit
-                VFXController.instance.PlayHitSound();
-            }           
         }
+
+        // Destuimos la bala.
+        Destroy(col.gameObject);
+
+        if(life <= 0) // Si llega a 0
+        {   
+            // Mostramos la explosion
+            GameManager.instance.PlayExplotion(transform.position, new Color(255, 0, 0, 255));
+            VFXController.instance.PlayGameOverSound();
+            Destroy(gameObject);
+            Debug.Log("Perdiste");
+        } else {
+            // Indicador sonoro de hit
+            VFXController.instance.PlayHitSound();
+        }           
     }
 
     public void HeartsController()
@@ -137,5 +167,18 @@ public class Player : MonoBehaviour
                 hearts[i].enabled = false;
             }
         }
+    }
+
+    Coroutine triggerInvul = null;
+    IEnumerator TriggerInvul(){
+        GameManager.instance.TogglePlayerInvul();
+        // Activamos el blinking
+        blinkScript.enabled = true;
+        yield return new WaitForSeconds(invulTime);
+        // Lo apagamos
+        blinkScript.enabled = false;
+        GameManager.instance.TogglePlayerInvul();
+        // Animacion aqui.
+        triggerInvul = null;
     }
 }
