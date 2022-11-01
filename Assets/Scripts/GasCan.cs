@@ -21,6 +21,8 @@ public class GasCan : MonoBehaviour
         if(col.tag.Equals("Player")){
             // Agregamos nafta
             GameManager.instance.IncreaseFuel();
+            // Hacemos un ruidito
+            VFXController.instance.PlayPickUpSound();
             // Lo destruimos
             Destroy(gameObject);
         }

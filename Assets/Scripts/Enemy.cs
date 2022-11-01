@@ -47,6 +47,8 @@ public class Enemy : MonoBehaviour
         if( col.tag.Equals("PBullet") || col.tag.Equals("Player")){
             // Hacemos la explosion
             GameManager.instance.PlayExplotion(transform.position, new Color(255, 255, 255, 255));
+            // Reproducimos el sonido
+            VFXController.instance.PlayExplosionSound();
             // Roleamos y si hay suerte spawneamos nafta.
             GameManager.instance.SpawnFuel(transform);
             
@@ -54,7 +56,7 @@ public class Enemy : MonoBehaviour
             // Destruimos al enemigo y la bala.
             Destroy(gameObject);
             Destroy(col.gameObject);
-            Debug.Log("Enemigo destruido");
+            //Debug.Log("Enemigo destruido");
         }
     }
 }

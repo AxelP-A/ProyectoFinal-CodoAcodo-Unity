@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
 {
     public float speed;
     public Camera cam;
+
+    // Para el Hp
     public int life = 3;
     [SerializeField] int heartsQuantity;
     [SerializeField] Image[] hearts;
@@ -28,10 +30,8 @@ public class Player : MonoBehaviour
 
     void Awake()
 	{
-     HeartsController();
+        HeartsController(); // Seteamos los sprites de salud.
     }
-
-
 
     void Start(){
         // Agarramos la altura del player basado en su transform scale.
@@ -60,6 +60,8 @@ public class Player : MonoBehaviour
 
     IEnumerator Shoot(){
         allowFire = false;
+        // Reproducimos el sonido
+        VFXController.instance.PlayShootingNoise();
         // Creamos la bala
         GameObject bullet1 = Instantiate(playerBullet);
         // Movemos el objeto a donde tendria que salir.
@@ -91,30 +93,34 @@ public class Player : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col){
         // Nos fijamos si choco contra otra nave o una bala enemiga.
         if( col.tag.Equals("EBullet") || col.tag.Equals("Enemy")){
-            // Mostramos la explosion
-
-            //col.gameObject.SendMessage("ApplyDamage", 1); Testeando
+            // Le quitamos hp y updateamos el canvas.
             life--;
             HeartsController();
-            if(life <= 0)
-            {   
-            GameManager.instance.PlayExplotion(transform.position, new Color(255, 0, 0, 255));
-            Destroy(gameObject);
-            Debug.Log("Perdiste");
-            }
             // Destuimos la bala.
             Destroy(col.gameObject);
-           
+
+            if(life <= 0) // Si llega a 0
+            {   
+                // Mostramos la explosion
+                GameManager.instance.PlayExplotion(transform.position, new Color(255, 0, 0, 255));
+                VFXController.instance.PlayGameOverSound();
+                Destroy(gameObject);
+                Debug.Log("Perdiste");
+            } else {
+                // Indicador sonoro de hit
+                VFXController.instance.PlayHitSound();
+            }           
         }
     }
 
     public void HeartsController()
     {
+        // Si hay mas corazoncito que contenedores, igualamos a contenedores.
         if (life > heartsQuantity)
         {
             life = heartsQuantity;
         }
-
+        // Para todos los sprites , cambiamos su dibujo si esta activo o no.
         for (int i = 0; i < hearts.Length; i++)
         {
             if(i < life)
@@ -123,7 +129,7 @@ public class Player : MonoBehaviour
             } else {
                 hearts[i].sprite = emptyHeart;
             }
-
+            // Si hay mas del maximo los activamos o desactivamos.
             if(i < heartsQuantity)
             {
                 hearts[i].enabled = true;
