@@ -4,31 +4,46 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    float speed;
-    public float startingSpeed;
-    //public Camera cam;
+    [SerializeField] float speed;
+    [SerializeField] float maxDistance;
+    private float currentDistance;
 
-    void Start()
+    void Awake()
     {
-        startingSpeed = 8;
-        speed = startingSpeed;
+        speed = 8;
+        maxDistance = 50;
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        //Agarramos la posicion de la bala.
         Vector2 pos = transform.position;
-        // Calculamos su trayectoria
         pos = new Vector2(pos.x, pos.y + speed * Time.deltaTime);
-        // Update a la posicion de la bala.
         transform.position = pos;
 
-        /* La destruimos si se sale de la camara ( cambiar luego x tiempo)
-        Vector2 max = cam.ViewportToWorldPoint(new Vector2(1, 1));
-        if(transform.position.y > max.y){
-            Destroy(gameObject);
+        currentDistance += speed * Time.deltaTime;
+
+        if (currentDistance > maxDistance)
+        {
+            BulletFactory.Instance.ReturnBullet(this);
         }
-        */
+    }
+
+    private void Reset()
+    {
+        currentDistance = 0;
+    }
+
+    public static void TurnOn(Bullet bullet)
+    {
+        bullet.Reset();
+        bullet.gameObject.SetActive(true);
+    }
+
+    public static void TurnOff(Bullet bullet)
+    {
+        bullet.gameObject.SetActive(false);
+
     }
 }

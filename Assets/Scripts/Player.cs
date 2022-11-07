@@ -27,12 +27,10 @@ public class Player : MonoBehaviour
     public float offset;
 
     // Para disparar
-    public GameObject playerBullet;
-    public GameObject bulletPos1;
-    public GameObject bulletPos2;
-    bool allowFire = true;
-
-    public float fireRate = 0.3f; // Si el num baja dispara mas rapido.
+    [SerializeField] Transform shootPoint1;
+    [SerializeField] Transform shootPoint2;
+    [SerializeField] float fireRate = 0.3f; // Si el num baja dispara mas rapido.
+    private bool allowFire = true;
 
 
     void Awake()
@@ -72,13 +70,13 @@ public class Player : MonoBehaviour
         allowFire = false;
         // Reproducimos el sonido
         VFXController.instance.PlayShootingNoise();
-        // Creamos la bala
-        GameObject bullet1 = Instantiate(playerBullet);
-        // Movemos el objeto a donde tendria que salir.
-        bullet1.transform.position = bulletPos1.transform.position;
-        // Lo mismo para la segunda bala.
-        GameObject bullet2 = Instantiate(playerBullet);
-        bullet2.transform.position = bulletPos2.transform.position;
+        // Creamos las balas y las movemos a donde tienen que salir
+        var bullet1 = BulletFactory.Instance.GetBullet();
+        bullet1.transform.position = shootPoint1.position;
+        bullet1.transform.forward = shootPoint1.forward;
+        var bullet2 = BulletFactory.Instance.GetBullet();
+        bullet2.transform.position = shootPoint2.position;
+        bullet2.transform.forward = shootPoint2.forward;
         yield return new WaitForSeconds(fireRate);
         allowFire = true;
     }
