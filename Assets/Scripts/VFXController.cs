@@ -9,6 +9,7 @@ public class VFXController : MonoBehaviour
     public GameObject pickupSound;
     public GameObject gameOverSound;
     public GameObject hitSound;
+    public GameObject hoverSound;
 
 
     public static VFXController instance = null;
@@ -44,6 +45,10 @@ public class VFXController : MonoBehaviour
     }
     public void PlayHitSound(){
         GameObject sonido = Instantiate(hitSound);  
+        sonido.transform.parent = transform;   
+    }
+    public void PlayButtonHoverSound(){
+        GameObject sonido = Instantiate(hoverSound);  
         sonido.transform.parent = transform;   
     }
 }

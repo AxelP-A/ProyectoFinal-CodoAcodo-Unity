@@ -137,6 +137,7 @@ public class Player : MonoBehaviour
             VFXController.instance.PlayGameOverSound();
             Destroy(gameObject);
             Debug.Log("Perdiste");
+            GameManager.instance.TriggerGameOver();
         } else {
             // Indicador sonoro de hit
             VFXController.instance.PlayHitSound();

@@ -17,13 +17,19 @@ public class GameManager : MonoBehaviour
 
     // Para la nafta
     public Image nafta;
-    public float velocidadDrenado;
+    public float velocidadDrenado; // Recomiendo 3
     public float porcentajeIncrementa;
     // Para los power ups
     public GameObject naftaPrefab;
 
     // Estado del player para que lo vean los enemigos.
     [SerializeField] bool isThePlayerInvul = false;
+    // Para manejar los menues.
+    [SerializeField] MenuAndButtons menuScript;
+    bool isTheGameOver;
+    // Para el Score
+    [SerializeField] ScoreManager scoreScript;
+    public int pointsPerEnemy;
 
     void Awake()
     {
@@ -49,8 +55,14 @@ public class GameManager : MonoBehaviour
     }
 
     public void DecreaseFuel(){
-        if(nafta.fillAmount != 0){
+        if(nafta.fillAmount != 0 && !isTheGameOver){
             nafta.fillAmount -= (velocidadDrenado/100) * Time.deltaTime;
+        } else {
+            // Si no hay nafta.
+            if(isTheGameOver){ // Primero si fija si el juego ya termino para que no se siga llamando esto.
+                return;
+            }
+            TriggerGameOver();
         }
     }
     public void IncreaseFuel(){
@@ -60,6 +72,9 @@ public class GameManager : MonoBehaviour
 
     void Update(){
         DecreaseFuel();
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            TriggerPause(); // Si se presiona escape pausamos o despausamos.
+        }
     }
 
     public void SpawnFuel(Transform whereTo){
@@ -84,5 +99,27 @@ public class GameManager : MonoBehaviour
         }  else {
             return false;
         }
+    }
+
+    public void TriggerGameOver(){
+        // Se va a encargar de los eventos de gameOver
+        if(playerReference != null){
+            PlayExplotion(playerReference.transform.position, Color.white);
+            Destroy(playerReference);
+            playerReference = null; // Para que los enemigos no tiren error al disparar, devolvemos esto a null.
+        }
+        menuScript.ShowGameOverScreen();
+        isTheGameOver = true;
+    }
+
+    void TriggerPause(){
+        if(!isTheGameOver) // Para que no se pueda pausar si se perdio.
+        {
+            menuScript.TogglePauseScreen();
+        }
+    }
+
+    public void IncreaseScore(int ammount){
+        scoreScript.UpdateScore(ammount);
     }
 }

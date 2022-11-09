@@ -63,7 +63,8 @@ public class Enemy : MonoBehaviour
                 GameManager.instance.SpawnFuel(transform);
                 // Roleamos por un power Up
                 PickUpManager.instance.SpawnPickUp(transform);
-
+                //Sumamos puntos al player
+                GameManager.instance.IncreaseScore(GameManager.instance.pointsPerEnemy);
                 // Destruimos al enemigo y la bala.
                 Destroy(gameObject); // Destruimos la nave
             } 

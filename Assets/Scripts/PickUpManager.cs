@@ -53,7 +53,7 @@ public class PickUpManager : MonoBehaviour
             if(playerScript.life == playerScript.startingHP){
                 // Si se esta full hp, spawnear escudo
                 GameObject escudito = Instantiate(shieldPickUp);
-                Debug.Log("Se spawneo escudito.");
+                //Debug.Log("Se spawneo escudito.");
                 escudito.transform.position = where.position + new Vector3(0, 0.5f, 0);
             } else {
                 // Sino curita
