@@ -58,7 +58,7 @@ public class Enemy : MonoBehaviour
                 // Hacemos la explosion
                 GameManager.instance.PlayExplotion(transform.position, new Color(255, 255, 255, 255));
                 // Reproducimos el sonido
-                VFXController.instance.PlayExplosionSound();
+                VFXController.instance.PlayVFX(VFXController.VFXName.EXPLOSION);
                 // Roleamos y si hay suerte spawneamos nafta.
                 GameManager.instance.SpawnFuel(transform);
                 // Roleamos por un power Up

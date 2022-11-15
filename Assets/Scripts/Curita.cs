@@ -23,7 +23,7 @@ public class Curita : MonoBehaviour
             // Agregamos el escudo
             PickUpManager.instance.HealPlayer();
             // Hacemos un ruidito
-            VFXController.instance.PlayPickUpSound();
+            VFXController.instance.PlayVFX(VFXController.VFXName.PICKUP);
             // Lo destruimos
             Destroy(gameObject);
         }

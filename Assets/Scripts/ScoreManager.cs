@@ -6,6 +6,7 @@ using TMPro;
 public class ScoreManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI scoreDisplay;
+    public int pointsTowin;
     int scoreValue;
     void Start()
     {
@@ -18,9 +19,9 @@ public class ScoreManager : MonoBehaviour
         scoreValue += ammount;
         scoreDisplay.text = scoreValue.ToString();
         // Si se logra una meta, pasar al jefe x ahi ?.
-        if(scoreValue >= 4000)
+        if(scoreValue >= pointsTowin && !GameManager.instance.gameState) // Nos fijamos el estado para que trigeree 1 vez sola
         {
-            Debug.Log("PASAS DE NIVEL O ALGO");
+            GameManager.instance.TriggerVictory();
         }
     }
 }

@@ -13,6 +13,7 @@ public class PickUpManager : MonoBehaviour
     [SerializeField] GameObject player;
     Player playerScript;
     GameObject shieldImage;
+    public int maxCantEscudos;
     void Awake()
     {
         //If this script does not exit already, use this current instance
@@ -33,7 +34,9 @@ public class PickUpManager : MonoBehaviour
         if(!shieldImage.activeInHierarchy){
             shieldImage.SetActive(true);
         }
+        // Le sumamos escudos al player, pero no dejamos que pase de un valor maximo.
         playerScript.shieldAmmount += CantidadDeEscudo;
+        playerScript.shieldAmmount = Mathf.Clamp(playerScript.shieldAmmount, 0, maxCantEscudos);
     }
 
     public void RemoveShield(){

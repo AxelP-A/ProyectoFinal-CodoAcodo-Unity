@@ -71,7 +71,8 @@ public class Player : MonoBehaviour
     IEnumerator Shoot(){
         allowFire = false;
         // Reproducimos el sonido
-        VFXController.instance.PlayShootingNoise();
+        //VFXController.instance.PlayShootingNoise(); */ARREGLAR */
+        VFXController.instance.PlayVFX(VFXController.VFXName.SHOOT);
         // Creamos la bala
         GameObject bullet1 = Instantiate(playerBullet);
         // Movemos el objeto a donde tendria que salir.
@@ -94,7 +95,8 @@ public class Player : MonoBehaviour
         // Movemos en la direccion.
         Move(direction);
 
-        if(Input.GetKey(KeyCode.Space) && allowFire){
+        // Si se presiona espacio, no esta en cooldown y el juego no termino, dispara.
+        if(Input.GetKey(KeyCode.Space) && allowFire && !GameManager.instance.gameState){
             StartCoroutine(Shoot());
         }
     }
@@ -134,13 +136,13 @@ public class Player : MonoBehaviour
         {   
             // Mostramos la explosion
             GameManager.instance.PlayExplotion(transform.position, new Color(255, 0, 0, 255));
-            VFXController.instance.PlayGameOverSound();
+            VFXController.instance.PlayVFX(VFXController.VFXName.GAME_OVER);
             Destroy(gameObject);
             Debug.Log("Perdiste");
             GameManager.instance.TriggerGameOver();
         } else {
             // Indicador sonoro de hit
-            VFXController.instance.PlayHitSound();
+            VFXController.instance.PlayVFX(VFXController.VFXName.HIT);
         }           
     }
 

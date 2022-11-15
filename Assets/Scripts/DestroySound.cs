@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class DestroySound : MonoBehaviour
 {
-    // Start is called before the first frame update
-    float duration;
-    void Start()
+    // Este script existe, xq al usar timeScale 0, algunos sonidos no pueden destruirse, por ende lo 
+    // logramos destruir de esta forma.
+    AudioSource audioSource;
+    void Start(){
+        audioSource = GetComponent<AudioSource>();
+    }
+    void Update()
     {
-        duration = gameObject.GetComponent<AudioSource>().clip.length;
-        //Debug.Log(duration);
-        Destroy(gameObject, duration);
+        // Cuando deje de reproducir, borra el objeto
+        if(!audioSource.isPlaying)
+        Destroy(gameObject);
     }
 }

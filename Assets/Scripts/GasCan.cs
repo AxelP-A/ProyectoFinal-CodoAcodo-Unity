@@ -22,7 +22,7 @@ public class GasCan : MonoBehaviour
             // Agregamos nafta
             GameManager.instance.IncreaseFuel();
             // Hacemos un ruidito
-            VFXController.instance.PlayPickUpSound();
+            VFXController.instance.PlayVFX(VFXController.VFXName.PICKUP);
             // Lo destruimos
             Destroy(gameObject);
         }

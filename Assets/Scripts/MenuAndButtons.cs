@@ -8,14 +8,9 @@ public class MenuAndButtons : MonoBehaviour
 {
     public GameObject pauseMenu;
     public GameObject gameOverScreen;
+    public GameObject winScreen;
     public float fadeInTime; // Tiempo que tarda en aparecer el GameOver
     public float fadeTimeMenu; // Tiempo del fade del menu.
-    //public Button retryButton;
-    //public Button backToMenuButton;
-
-    void Start(){
-
-    }
 
     public void Retry(){
         // Recargamos la escena.
@@ -36,6 +31,14 @@ public class MenuAndButtons : MonoBehaviour
         CanvasGroup panel = gameOverScreen.GetComponent<CanvasGroup>();
         if(fadeInCoroutine == null){
             fadeInCoroutine = StartCoroutine(FadeIn(panel, fadeInTime)); // Llamo a la rutina que hace visible al menu.
+        }
+    }
+
+    public void ShowVictoryScreen(){
+        winScreen.SetActive(true);
+        CanvasGroup panel = winScreen.GetComponent<CanvasGroup>();
+        if(fadeInCoroutine == null){
+            fadeInCoroutine = StartCoroutine(FadeIn(panel, fadeInTime, true)); // Llamo a la rutina que hace visible al menu.
         }
     }
 

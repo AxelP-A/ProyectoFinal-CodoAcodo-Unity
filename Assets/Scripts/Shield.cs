@@ -22,7 +22,7 @@ public class Shield : MonoBehaviour
             // Agregamos el escudo
             PickUpManager.instance.GiveShield();
             // Hacemos un ruidito
-            VFXController.instance.PlayPickUpSound();
+            VFXController.instance.PlayVFX(VFXController.VFXName.PICKUP);
             // Lo destruimos
             Destroy(gameObject);
             // Coloco esto xq esta tirando problemas de doble trigger.

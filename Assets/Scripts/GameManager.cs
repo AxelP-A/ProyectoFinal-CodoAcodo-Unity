@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public Color defaultExplosionColor;
 
     // Para la nafta
+    [Header("Cosas de Nafta")]
     public Image nafta;
     public float velocidadDrenado; // Recomiendo 3
     public float porcentajeIncrementa;
@@ -23,11 +24,19 @@ public class GameManager : MonoBehaviour
     public GameObject naftaPrefab;
 
     // Estado del player para que lo vean los enemigos.
-    [SerializeField] bool isThePlayerInvul = false;
+    bool isThePlayerInvul = false;
     // Para manejar los menues.
     [SerializeField] MenuAndButtons menuScript;
     bool isTheGameOver;
+    public bool gameState{ // Devuelve el valor de isTheGameOver a otros scripts.
+        get 
+        {
+            return isTheGameOver;
+        }
+    }
+    
     // Para el Score
+    [Header("Cosas de Score")]
     [SerializeField] ScoreManager scoreScript;
     public int pointsPerEnemy;
 
@@ -105,11 +114,21 @@ public class GameManager : MonoBehaviour
         // Se va a encargar de los eventos de gameOver
         if(playerReference != null){
             PlayExplotion(playerReference.transform.position, Color.white);
+            VFXController.instance.PlayVFX(VFXController.VFXName.GAME_OVER);
             Destroy(playerReference);
             playerReference = null; // Para que los enemigos no tiren error al disparar, devolvemos esto a null.
         }
         menuScript.ShowGameOverScreen();
         isTheGameOver = true;
+    }
+
+    public void TriggerVictory(){
+        // Se encarga de los eventos de cuando ganas
+        if(playerReference != null){
+            VFXController.instance.PlayVictoySound();
+            menuScript.ShowVictoryScreen();
+            isTheGameOver = true;
+        }
     }
 
     void TriggerPause(){
