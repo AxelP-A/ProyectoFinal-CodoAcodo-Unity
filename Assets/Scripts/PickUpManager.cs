@@ -37,6 +37,8 @@ public class PickUpManager : MonoBehaviour
         // Le sumamos escudos al player, pero no dejamos que pase de un valor maximo.
         playerScript.shieldAmmount += CantidadDeEscudo;
         playerScript.shieldAmmount = Mathf.Clamp(playerScript.shieldAmmount, 0, maxCantEscudos);
+        // Updateamos el canvas
+        playerScript.ShieldDisplayController();
     }
 
     public void RemoveShield(){

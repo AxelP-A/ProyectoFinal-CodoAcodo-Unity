@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public int startingHP;
     // Cuantos escudos tiene el player.
     public int shieldAmmount = 0;
+    public Image[] shieldDisplays;
     // Si esta en invul frames.
     [SerializeField] float invulTime;
     BlinkEffect blinkScript;
@@ -37,8 +38,10 @@ public class Player : MonoBehaviour
 
     void Awake()
 	{
-        HeartsController(); // Seteamos los sprites de salud.
+        HeartsController(); // Seteamos los sprites de salud
+        ShieldDisplayController(); // Seteamos los sprites de escudo.
         blinkScript = GetComponent<BlinkEffect>();
+
     }
 
     void Start(){
@@ -120,6 +123,8 @@ public class Player : MonoBehaviour
         // SI tiene escudos
         if(shieldAmmount > 0){ 
             shieldAmmount -= 1;
+            // Updateamos la visual de la UI.
+            ShieldDisplayController();
             if(shieldAmmount == 0){ // Si se le acaban
                 PickUpManager.instance.RemoveShield();
             }
@@ -171,6 +176,20 @@ public class Player : MonoBehaviour
             }
         }
     }
+
+    public void ShieldDisplayController(){
+            // Para todos los escudos de la UI
+        for( int i=0; i<shieldDisplays.Length; i++){
+            // Si No tenemos esa cantidad, los apagamos.
+             if(shieldAmmount <= i && shieldDisplays[i].enabled){
+                shieldDisplays[i].enabled = false;
+            }  // Si tenemos esa cantidad y estan apagados, los prendemos.
+            else if(shieldAmmount > i && !shieldDisplays[i].enabled){
+                shieldDisplays[i].enabled = true;
+                }
+        }
+    }
+
 
     Coroutine triggerInvul = null;
     IEnumerator TriggerInvul(){
