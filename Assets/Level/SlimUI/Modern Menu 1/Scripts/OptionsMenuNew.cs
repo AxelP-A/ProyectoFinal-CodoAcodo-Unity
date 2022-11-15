@@ -34,7 +34,7 @@ namespace SlimUI.ModernMenu{
 		public GameObject cameraeffectstext; 
 
 		[Header("GAME SETTINGS")]
-		public GameObject showhudtext;
+		public GameObject inGameMusic;
 		public GameObject tooltipstext;
 		public GameObject difficultynormaltext;
 		public GameObject difficultynormaltextLINE;
@@ -84,10 +84,10 @@ namespace SlimUI.ModernMenu{
 
 			// check hud value
 			if(PlayerPrefs.GetInt("ShowHUD")==0){
-				showhudtext.GetComponent<TMP_Text>().text = "Off";
+				inGameMusic.GetComponent<TMP_Text>().text = "Off";
 			}
 			else{
-				showhudtext.GetComponent<TMP_Text>().text = "On";
+				inGameMusic.GetComponent<TMP_Text>().text = "On";
 			}
 
 			// check tool tip value
@@ -239,11 +239,11 @@ namespace SlimUI.ModernMenu{
 		public void ShowHUD (){
 			if(PlayerPrefs.GetInt("ShowHUD")==0){
 				PlayerPrefs.SetInt("ShowHUD",1);
-				showhudtext.GetComponent<TMP_Text>().text = "On";
+				inGameMusic.GetComponent<TMP_Text>().text = "On";
 			}
 			else if(PlayerPrefs.GetInt("ShowHUD")==1){
 				PlayerPrefs.SetInt("ShowHUD",0);
-				showhudtext.GetComponent<TMP_Text>().text = "Off";
+				inGameMusic.GetComponent<TMP_Text>().text = "Off";
 			}
 		}
 

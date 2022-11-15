@@ -27617,7 +27617,7 @@ MonoBehaviour:
   texturemedtextLINE: {fileID: 1239697960207838}
   texturehightextLINE: {fileID: 1306831596735838}
   cameraeffectstext: {fileID: 1504221381585138}
-  showhudtext: {fileID: 1375574808321544}
+  inGameMusic: {fileID: 0}
   tooltipstext: {fileID: 1517243372321222}
   difficultynormaltext: {fileID: 1909432260077236}
   difficultynormaltextLINE: {fileID: 1775886821371390}

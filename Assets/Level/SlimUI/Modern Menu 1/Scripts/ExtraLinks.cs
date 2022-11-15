@@ -2,6 +2,7 @@
 
 namespace SlimUI.ModernMenu{
     public class ExtraLinks : MonoBehaviour{
+
         public void CCP(){
             Application.OpenURL("https://steamcommunity.com/id/evanescenc/");
         }
@@ -9,7 +10,7 @@ namespace SlimUI.ModernMenu{
         public void SciFi(){
             Application.OpenURL("https://discord.com/");
         }
-
+/*
         public void Clean1(){
             Application.OpenURL("http://google.com.ar");
         }
@@ -25,5 +26,6 @@ namespace SlimUI.ModernMenu{
         public void Tech(){
             Application.OpenURL("http://u3d.as/1nki");
         }
+*/
     }
 }
