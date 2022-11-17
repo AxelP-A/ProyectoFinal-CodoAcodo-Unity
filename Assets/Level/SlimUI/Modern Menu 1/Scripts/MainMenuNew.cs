@@ -240,9 +240,11 @@ namespace SlimUI.ModernMenu{
 			DisablePlayCampaign();
 		}
 
+
+		// MODIFICADO, DEBERÍA SER TRUE PARA QUE MUESTRE EL MENÚ CORRECTO
 		public void ExtrasMenu(){
 			playMenu.SetActive(false);
-			if(extrasMenu) extrasMenu.SetActive(true);
+			if(extrasMenu) extrasMenu.SetActive(false);
 			exitMenu.SetActive(false);
 		}
 

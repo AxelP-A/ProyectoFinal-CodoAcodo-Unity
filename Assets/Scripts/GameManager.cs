@@ -16,11 +16,29 @@ public class GameManager : MonoBehaviour
     public Color defaultExplosionColor;
 
     // Para la nafta
+    [Header("Cosas de Nafta")]
     public Image nafta;
-    public float velocidadDrenado;
+    public float velocidadDrenado; // Recomiendo 3
     public float porcentajeIncrementa;
     // Para los power ups
     public GameObject naftaPrefab;
+
+    // Estado del player para que lo vean los enemigos.
+    bool isThePlayerInvul = false;
+    // Para manejar los menues.
+    [SerializeField] MenuAndButtons menuScript;
+    bool isTheGameOver;
+    public bool gameState{ // Devuelve el valor de isTheGameOver a otros scripts.
+        get 
+        {
+            return isTheGameOver;
+        }
+    }
+    
+    // Para el Score
+    [Header("Cosas de Score")]
+    [SerializeField] ScoreManager scoreScript;
+    public int pointsPerEnemy;
 
     void Awake()
     {
@@ -46,8 +64,14 @@ public class GameManager : MonoBehaviour
     }
 
     public void DecreaseFuel(){
-        if(nafta.fillAmount != 0){
+        if(nafta.fillAmount != 0 && !isTheGameOver){
             nafta.fillAmount -= (velocidadDrenado/100) * Time.deltaTime;
+        } else {
+            // Si no hay nafta.
+            if(isTheGameOver){ // Primero si fija si el juego ya termino para que no se siga llamando esto.
+                return;
+            }
+            TriggerGameOver();
         }
     }
     public void IncreaseFuel(){
@@ -57,6 +81,9 @@ public class GameManager : MonoBehaviour
 
     void Update(){
         DecreaseFuel();
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            TriggerPause(); // Si se presiona escape pausamos o despausamos.
+        }
     }
 
     public void SpawnFuel(Transform whereTo){
@@ -66,5 +93,52 @@ public class GameManager : MonoBehaviour
             // Movemos el transform.
             bidon.transform.position = whereTo.position;
         }
+    }
+
+    public bool TogglePlayerInvul()
+    {
+        isThePlayerInvul = !isThePlayerInvul;
+        //Debug.Log("Invul state>" + isThePlayerInvul);
+        return isThePlayerInvul;
+    }
+
+    public bool CheckPlayerInvulneravility(){
+        if(isThePlayerInvul){
+            return true;
+        }  else {
+            return false;
+        }
+    }
+
+    public void TriggerGameOver(){
+        // Se va a encargar de los eventos de gameOver
+        if(playerReference != null){
+            PlayExplotion(playerReference.transform.position, Color.white);
+            VFXController.instance.PlayVFX(VFXController.VFXName.GAME_OVER);
+            Destroy(playerReference);
+            playerReference = null; // Para que los enemigos no tiren error al disparar, devolvemos esto a null.
+        }
+        menuScript.ShowGameOverScreen();
+        isTheGameOver = true;
+    }
+
+    public void TriggerVictory(){
+        // Se encarga de los eventos de cuando ganas
+        if(playerReference != null){
+            VFXController.instance.PlayVictoySound();
+            menuScript.ShowVictoryScreen();
+            isTheGameOver = true;
+        }
+    }
+
+    void TriggerPause(){
+        if(!isTheGameOver) // Para que no se pueda pausar si se perdio.
+        {
+            menuScript.TogglePauseScreen();
+        }
+    }
+
+    public void IncreaseScore(int ammount){
+        scoreScript.UpdateScore(ammount);
     }
 }

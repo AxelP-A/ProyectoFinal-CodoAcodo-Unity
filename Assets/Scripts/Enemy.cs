@@ -7,6 +7,8 @@ public class Enemy : MonoBehaviour
     float speed = 2f;
     // Para disparar
     public GameObject enemyBullet;
+    bool activado = false;
+
     void Start()
     {
         Destroy(gameObject, 6f); // Problemas cacheando la camara en un prefab.
@@ -45,16 +47,33 @@ public class Enemy : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col){
         // Nos fijamos si choco contra otra nave o una bala enemiga.
         if( col.tag.Equals("PBullet") || col.tag.Equals("Player")){
-            // Hacemos la explosion
-            GameManager.instance.PlayExplotion(transform.position, new Color(255, 255, 255, 255));
-            // Roleamos y si hay suerte spawneamos nafta.
-            GameManager.instance.SpawnFuel(transform);
-            
+            if(activado){
+                return;
+            }
+            activado = true; // Estas 2 lineas es para que no triggeree multiples veces.
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
 
-            // Destruimos al enemigo y la bala.
-            Destroy(gameObject);
-            Destroy(col.gameObject);
-            Debug.Log("Enemigo destruido");
+            if(col.tag.Equals("Player") && !GameManager.instance.CheckPlayerInvulneravility() || col.tag.Equals("PBullet")){
+                // Si choco con el player y no es invulnerable o, si choco con la bala
+                // Hacemos la explosion
+                GameManager.instance.PlayExplotion(transform.position, new Color(255, 255, 255, 255));
+                // Reproducimos el sonido
+                VFXController.instance.PlayVFX(VFXController.VFXName.EXPLOSION);
+                // Roleamos y si hay suerte spawneamos nafta.
+                GameManager.instance.SpawnFuel(transform);
+                // Roleamos por un power Up
+                PickUpManager.instance.SpawnPickUp(transform);
+                //Sumamos puntos al player
+                GameManager.instance.IncreaseScore(GameManager.instance.pointsPerEnemy);
+                // Destruimos al enemigo y la bala.
+                Destroy(gameObject); // Destruimos la nave
+            } 
+            
+            if(col.tag.Equals("PBullet")){
+                // Si choca con la bala destruimos la nave y la bala.
+                Destroy(col.gameObject);
+            }
+            //Debug.Log("Enemigo destruido");
         }
     }
 }
