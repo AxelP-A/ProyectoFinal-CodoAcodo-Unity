@@ -8,6 +8,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoreDisplay;
     public int pointsTowin;
     int scoreValue;
+    bool bossEnabled;
     void Start()
     {
         scoreValue = 0;
@@ -19,9 +20,26 @@ public class ScoreManager : MonoBehaviour
         scoreValue += ammount;
         scoreDisplay.text = scoreValue.ToString();
         // Si se logra una meta, pasar al jefe x ahi ?.
-        if(scoreValue >= pointsTowin && !GameManager.instance.gameState) // Nos fijamos el estado para que trigeree 1 vez sola
+        if(scoreValue >= pointsTowin && !GameManager.instance.gameState && !bossEnabled) // Nos fijamos el estado para que trigeree 1 vez sola
         {
-            GameManager.instance.TriggerVictory();
+            // x ahi trigereamos algo q flashie una imagen de warning con un sonido.
+            GameManager.instance.menuScript.ToggleWarningMessage();
+            // Desactivamos enemigos
+            GameManager.instance.DisableEnemySpawning();
+            VFXController.instance.PlayVFX(VFXController.VFXName.SIREN); // CAMBIAR A SIRENA.
+            if(waitTime == null){
+                waitTime = StartCoroutine(WaitTimeForBoss(5f));
+            }
+            bossEnabled = true;
+            //GameManager.instance.TriggerVictory();
         }
+    }
+
+    Coroutine waitTime = null;
+    IEnumerator WaitTimeForBoss(float waitTimeF){
+        yield return new WaitForSeconds(waitTimeF);
+        // Despues trigereamos el boss.
+        GameManager.instance.TriggerBoss();
+        waitTime = null;
     }
 }

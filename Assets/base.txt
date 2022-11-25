@@ -18,5 +18,19 @@ order in layer fondo.
 
 Object pooling para balas.
 
+Para el jefe>
+    sale cartel boss aproaching !
+    rutinas de disparo.
+    restringir area de juego ?.
+
+    cambia cancion y empieza musica nueva.. DONE
+    empieza a subir la barra de hp del boss DONE
+    transicion de win a boss DONE
+    .... desaparece medidor de nafta.. DONE
+    apagar invoke de enemies DONE
+    jefe empieza a aparecer moviendose hasta posicion. DONE
+    prender los collider del jefe DONE
+    baja el volumen de musica DONE
+    despues va de derecha a izquierda... DONE
 
 

@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     // Para la nafta
     [Header("Cosas de Nafta")]
     public Image nafta;
+    public GameObject bordeNafta;
     public float velocidadDrenado; // Recomiendo 3
     public float porcentajeIncrementa;
     // Para los power ups
@@ -26,7 +27,7 @@ public class GameManager : MonoBehaviour
     // Estado del player para que lo vean los enemigos.
     bool isThePlayerInvul = false;
     // Para manejar los menues.
-    [SerializeField] MenuAndButtons menuScript;
+    public MenuAndButtons menuScript;
     bool isTheGameOver;
     public bool gameState{ // Devuelve el valor de isTheGameOver a otros scripts.
         get 
@@ -39,6 +40,14 @@ public class GameManager : MonoBehaviour
     [Header("Cosas de Score")]
     [SerializeField] ScoreManager scoreScript;
     public int pointsPerEnemy;
+    // Para el Boss
+    [Header("Cosas del Jefe")]
+    [SerializeField] Transform bossSpawnPoint;
+    [SerializeField] GameObject bossPrefab;
+    GameObject bossReference = null;
+    public GameObject bossBar;
+    public Image bossHp;
+    [SerializeField] GameObject enemySpawner;
 
     void Awake()
     {
@@ -80,7 +89,9 @@ public class GameManager : MonoBehaviour
     }
 
     void Update(){
-        DecreaseFuel();
+        if(bossReference == null){
+            DecreaseFuel();
+        }
         if(Input.GetKeyDown(KeyCode.Escape)){
             TriggerPause(); // Si se presiona escape pausamos o despausamos.
         }
@@ -129,6 +140,31 @@ public class GameManager : MonoBehaviour
             menuScript.ShowVictoryScreen();
             isTheGameOver = true;
         }
+    }
+
+    public void TriggerBoss(){
+        // Se encarga del cambio de nivel a Boss Lv
+        //Spawneamos el jefe
+        if(playerReference != null && bossReference == null){
+            bossReference = Instantiate(bossPrefab, bossSpawnPoint);
+            // Activamos la bossBar y su animacion.
+            bossBar.SetActive(true);
+            // Apagamos el sistema de fuel
+            DisableFuelSystem();
+            // Cambiamos a musica de Jefe
+            VFXController.instance.SwapToBossMusic();
+        }
+    }
+
+    public void DisableEnemySpawning(){
+        // Apagamos los Spawns de enemigos.
+            Destroy(enemySpawner);
+    }
+
+    void DisableFuelSystem(){
+        nafta.gameObject.SetActive(false);
+        bordeNafta.SetActive(false);
+
     }
 
     void TriggerPause(){
