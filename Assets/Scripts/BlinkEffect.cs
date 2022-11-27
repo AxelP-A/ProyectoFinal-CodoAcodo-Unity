@@ -12,11 +12,14 @@ public class BlinkEffect : MonoBehaviour
     SpriteRenderer spriteRenderer;
     SpriteRenderer shieldRenderer;
     public bool blinkShield;
+    public bool isABoss;
 
     void Awake()
     {
         spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
-        shieldRenderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
+        if(!isABoss){
+            shieldRenderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
+        }
     }
 
     // Update is called once per frame

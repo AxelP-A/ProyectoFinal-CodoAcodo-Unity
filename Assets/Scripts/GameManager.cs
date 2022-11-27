@@ -177,4 +177,14 @@ public class GameManager : MonoBehaviour
     public void IncreaseScore(int ammount){
         scoreScript.UpdateScore(ammount);
     }
+
+    public int DealDamageToBoss(int currentHp, int ammount){
+        //calculate the hp
+        int newCurrentHp = currentHp - ammount;
+        //Debug.Log(newCurrentHp);
+        // Change the hp bar fill percent
+        bossHp.fillAmount = ((newCurrentHp* 100)/ 5000f ) /100; //5000 es el max hp...  porcentaje q representa el hp de 5000, y dsps de la barra
+        // return the new current hp value.
+        return newCurrentHp;
+    }
 }

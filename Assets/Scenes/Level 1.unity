@@ -1923,6 +1923,7 @@ MonoBehaviour:
   endColor: {r: 1, g: 1, b: 1, a: 0}
   speed: 3
   blinkShield: 1
+  isABoss: 0
 --- !u!1 &1253191172
 GameObject:
   m_ObjectHideFlags: 0
