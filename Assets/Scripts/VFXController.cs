@@ -9,6 +9,7 @@ public class VFXController : MonoBehaviour
     public AudioSource mainSong;
     // Todos los clips de audio
     public AudioClip victorySong;
+    public AudioClip bossSong;
     // El objeto que se va a generar cada vez que se pide un VFX
     public GameObject parlante;
 
@@ -19,6 +20,12 @@ public class VFXController : MonoBehaviour
     public AudioClip gameOverSound;
     public AudioClip hitSound;
     public AudioClip hoverSound;
+    public AudioClip sirenSound;
+
+    //Trigger para bajar el volumen.
+    bool lowerVolume = false;
+    public float velocidadFade;
+    public float maxVolume;
 
     // El Enum que se usa de Key para llamar a la funcion PlayVFX.
     public enum VFXName {
@@ -27,7 +34,8 @@ public class VFXController : MonoBehaviour
         PICKUP,
         GAME_OVER,
         HIT,
-        HOVER
+        HOVER,
+        SIREN
     }
     // Un diccionario que va a contener todos los clips de audio con su respectivos volumenes.
     Dictionary<VFXName, Tuple<AudioClip, float>> clipLibrary = new Dictionary<VFXName, Tuple<AudioClip, float>>();
@@ -78,6 +86,7 @@ public class VFXController : MonoBehaviour
         clipLibrary.Add(VFXName.GAME_OVER, Tuple.Create(gameOverSound, 1f));
         clipLibrary.Add(VFXName.HIT, Tuple.Create( hitSound, 0.57f));
         clipLibrary.Add(VFXName.HOVER, Tuple.Create(hoverSound, 1f));
+        clipLibrary.Add(VFXName.SIREN, Tuple.Create(sirenSound, 0.05f));
     }
 
     // Esta funcion utiliza el Music Player Original.
@@ -91,5 +100,25 @@ public class VFXController : MonoBehaviour
     // Dice que no tiene referencias pero si se esta usando en los botones.
     public void PlayButtonHoverSound(){
         PlayVFX(VFXName.HOVER);  
+    }
+
+    public void SwapToBossMusic(){
+        lowerVolume = true;
+        //Debug.Log("Se cambio Lower Vol");
+    }
+
+    void Update(){
+        if(lowerVolume && mainSong.volume <= maxVolume){
+            mainSong.volume -= velocidadFade * Time.deltaTime;
+            if(mainSong.volume <=0){
+                lowerVolume = false;
+                mainSong.Stop();
+                mainSong.clip = bossSong;
+                mainSong.Play();                
+            }
+        }
+        if(!lowerVolume && mainSong.volume < maxVolume){
+            mainSong.volume += velocidadFade * Time.deltaTime;
+        }
     }
 }

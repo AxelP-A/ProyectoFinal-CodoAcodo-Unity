@@ -9,6 +9,7 @@ public class MenuAndButtons : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject gameOverScreen;
     public GameObject winScreen;
+    public GameObject warningScreen;
     public float fadeInTime; // Tiempo que tarda en aparecer el GameOver
     public float fadeTimeMenu; // Tiempo del fade del menu.
 
@@ -61,6 +62,19 @@ public class MenuAndButtons : MonoBehaviour
         }
     }
 
+    public void ToggleWarningMessage(){
+        if(fadeInCoroutine != null || fadeOutCoroutine != null)
+        {
+            return; // SI se esta ejecutando algo ya, no hacer nada.
+        }
+        warningScreen.SetActive(true);
+        CanvasGroup panel = warningScreen.GetComponent<CanvasGroup>();
+        if(fadeInCoroutine == null && panel.alpha == 0){
+            //Debug.Log("Entro al fade in");
+            blinking = StartCoroutine(Blinking(panel, 1f)); // Lo hace visible
+        }
+    }
+
     // Rutina que vuelve un panel visible.
     public Coroutine fadeInCoroutine = null;
     IEnumerator FadeIn(CanvasGroup panel, float fadeTime, bool changeTimeScale = false){
@@ -87,5 +101,24 @@ public class MenuAndButtons : MonoBehaviour
         yield return null;
         pauseMenu.SetActive(false); // Lo desactivo
         fadeOutCoroutine = null;
+    }
+
+    public Coroutine blinking = null;
+    IEnumerator Blinking(CanvasGroup panel, float fadeTime){
+        for(int i=0; i<3; i++){
+            while(panel.alpha < 1){
+                panel.alpha += Time.deltaTime / fadeTime;
+                yield return null;
+            }
+            yield return new WaitForEndOfFrame();
+            // Lo hacemos invisible
+            while(panel.alpha > 0){
+                panel.alpha -= Time.deltaTime / fadeTime;
+                yield return null;
+            }
+            yield return null;
+        }
+        yield return null;
+        warningScreen.SetActive(false);
     }
 }

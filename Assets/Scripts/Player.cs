@@ -107,7 +107,7 @@ public class Player : MonoBehaviour
     // Por si lo golpean.
     void OnTriggerEnter2D(Collider2D col){
         // Nos fijamos si choco contra otra nave o una bala enemiga.
-        if( col.tag.Equals("EBullet") || col.tag.Equals("Enemy")){
+        if( col.tag.Equals("EBullet") || col.tag.Equals("Enemy") || col.tag.Equals("Boss")){
             if(!GameManager.instance.CheckPlayerInvulneravility()){ // Si no esta en invul frames, le hacemos da;o.
                 TakeDamage(col);
             }
@@ -135,7 +135,9 @@ public class Player : MonoBehaviour
         }
 
         // Destuimos la bala.
-        Destroy(col.gameObject);
+        if(col.tag != "Boss"){
+            Destroy(col.gameObject);
+        }
 
         if(life <= 0) // Si llega a 0
         {   
