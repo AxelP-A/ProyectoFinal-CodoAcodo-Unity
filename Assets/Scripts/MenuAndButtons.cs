@@ -119,5 +119,6 @@ public class MenuAndButtons : MonoBehaviour
             yield return null;
         }
         yield return null;
+        warningScreen.SetActive(false);
     }
 }
