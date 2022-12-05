@@ -10159,7 +10159,7 @@ MonoBehaviour:
   gameOverSound: {fileID: 8300000, guid: 3bcbc60c25dd5dd48bbd17172150bf20, type: 3}
   hitSound: {fileID: 8300000, guid: 496ee9895ce140d48b65107a9d040881, type: 3}
   hoverSound: {fileID: 8300000, guid: f33153b7bf42878478c614366b931cd2, type: 3}
-  sirenSound: {fileID: 8300000, guid: 40e7d948bc756b34287b5061a085004e, type: 3}
+  sirenSound: {fileID: 8300000, guid: 8d98409b295e224449252004dc29991e, type: 3}
   velocidadFade: 0.05
   maxVolume: 0.06
 --- !u!4 &1940050787

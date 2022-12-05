@@ -86,7 +86,7 @@ public class VFXController : MonoBehaviour
         clipLibrary.Add(VFXName.GAME_OVER, Tuple.Create(gameOverSound, 1f));
         clipLibrary.Add(VFXName.HIT, Tuple.Create( hitSound, 0.57f));
         clipLibrary.Add(VFXName.HOVER, Tuple.Create(hoverSound, 1f));
-        clipLibrary.Add(VFXName.SIREN, Tuple.Create(sirenSound, 0.05f));
+        clipLibrary.Add(VFXName.SIREN, Tuple.Create(sirenSound, 1f));
     }
 
     // Esta funcion utiliza el Music Player Original.
