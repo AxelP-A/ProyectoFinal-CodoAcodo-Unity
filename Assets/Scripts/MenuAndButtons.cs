@@ -22,6 +22,11 @@ public class MenuAndButtons : MonoBehaviour
         SceneManager.LoadScene("Menu_Scene");
     }
 
+    public void QuitToCredits(){
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Credits");
+    }
+
     public void Continue(CanvasGroup panel){
         Time.timeScale = 1;
         fadeOutCoroutine = StartCoroutine(FadeOut(panel, fadeTimeMenu));
