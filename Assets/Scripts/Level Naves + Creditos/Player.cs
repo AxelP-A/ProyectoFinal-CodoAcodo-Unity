@@ -53,12 +53,17 @@ public class Player : MonoBehaviour
     }
 
     void Move(Vector2 direction){
+        
         // Limitamos el movimiento maximo del jugador. Sacando el tama;o maximo de la pantalla.
         Vector2 min = cam.ViewportToWorldPoint(new Vector2(0, 0));
         Vector2 max = cam.ViewportToWorldPoint(new Vector2(1, 1));
         // Le quitamos a min y max los valores de width y height del sprite del player
         max.x = max.x - width;
-        min.x = min.x + width;
+        if(GameManagerNave.instance.limitScreen){
+            min.x += 1.9f;
+        } else{
+            min.x = min.x + width;
+        }
         max.y = max.y - height;
         min.y = min.y + height;
         // Calculamos la posicion del player
@@ -99,7 +104,7 @@ public class Player : MonoBehaviour
         Move(direction);
 
         // Si se presiona espacio, no esta en cooldown y el juego no termino, dispara.
-        if(Input.GetKey(KeyCode.Space) && allowFire && !GameManager.instance.gameState){
+        if(Input.GetKey(KeyCode.Space) && allowFire && !GameManagerNave.instance.gameState){
             StartCoroutine(Shoot());
         }
     }
@@ -108,7 +113,7 @@ public class Player : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col){
         // Nos fijamos si choco contra otra nave o una bala enemiga.
         if( col.tag.Equals("EBullet") || col.tag.Equals("Enemy") || col.tag.Equals("Boss")){
-            if(!GameManager.instance.CheckPlayerInvulneravility()){ // Si no esta en invul frames, le hacemos da;o.
+            if(!GameManagerNave.instance.CheckPlayerInvulneravility()){ // Si no esta en invul frames, le hacemos da;o.
                 TakeDamage(col);
             }
         }
@@ -142,11 +147,11 @@ public class Player : MonoBehaviour
         if(life <= 0) // Si llega a 0
         {   
             // Mostramos la explosion
-            GameManager.instance.PlayExplotion(transform.position, new Color(255, 0, 0, 255));
+            GameManagerNave.instance.PlayExplotion(transform.position, new Color(255, 0, 0, 255));
             VFXController.instance.PlayVFX(VFXController.VFXName.GAME_OVER);
             Destroy(gameObject);
             Debug.Log("Perdiste");
-            GameManager.instance.TriggerGameOver();
+            GameManagerNave.instance.TriggerGameOver();
         } else {
             // Indicador sonoro de hit
             VFXController.instance.PlayVFX(VFXController.VFXName.HIT);
@@ -195,13 +200,13 @@ public class Player : MonoBehaviour
 
     Coroutine triggerInvul = null;
     IEnumerator TriggerInvul(){
-        GameManager.instance.TogglePlayerInvul();
+        GameManagerNave.instance.TogglePlayerInvul();
         // Activamos el blinking
         blinkScript.enabled = true;
         yield return new WaitForSeconds(invulTime);
         // Lo apagamos
         blinkScript.enabled = false;
-        GameManager.instance.TogglePlayerInvul();
+        GameManagerNave.instance.TogglePlayerInvul();
         // Animacion aqui.
         triggerInvul = null;
     }

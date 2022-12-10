@@ -114,7 +114,7 @@ public class BossController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         if((currentState == BOSS_STATE.PHASE1 || currentState == BOSS_STATE.PHASE2) && col.tag == "PBullet"){
-            currentHp = GameManager.instance.DealDamageToBoss(currentHp, 15);
+            currentHp = GameManagerNave.instance.DealDamageToBoss(currentHp, 15);
             if(blinkDamage == null){
                 blinkDamage = StartCoroutine(BlinkDamage(0.3f));
             }
@@ -170,12 +170,12 @@ public class BossController : MonoBehaviour
     Coroutine isExploting = null;
     IEnumerator IsExploting(){
         for(int i=0; i<14; i++){
-            GameManager.instance.PlayExplotion(explosionIndicators[i].position, Color.blue);
+            GameManagerNave.instance.PlayExplotion(explosionIndicators[i].position, Color.blue);
             VFXController.instance.PlayVFX(VFXController.VFXName.EXPLOSION);
             yield return new WaitForSeconds(0.4f);
         }
         // Triggereamos el win despues de las explosiones.
-        GameManager.instance.TriggerVictory();
+        GameManagerNave.instance.TriggerVictory();
         yield return null;    
     }
 

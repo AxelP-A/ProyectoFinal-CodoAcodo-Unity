@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class GameManagerNave : MonoBehaviour
 {
     //El Game Manager en este caso esta instanciado 
     // para que los enemigos, puedan usar playerReference para saber donde esta el player al apuntar
     // Y no tener que usar GameObject.Find, que seria poco eficiente con todos los objectos en la jerarquia.
 
-    public static GameManager instance = null;
+    public static GameManagerNave instance = null;
     public GameObject playerReference;
     // Para las explosiones
     public GameObject explosionPrefab;
@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
     // Para manejar los menues.
     public MenuAndButtons menuScript;
     bool isTheGameOver;
+
+    public bool limitScreen = true;
     public bool gameState{ // Devuelve el valor de isTheGameOver a otros scripts.
         get 
         {
@@ -144,6 +146,8 @@ public class GameManager : MonoBehaviour
 
     public void TriggerBoss(){
         // Se encarga del cambio de nivel a Boss Lv
+        // Sacamos el limite de movimiento del jugador
+        limitScreen = false;
         //Spawneamos el jefe
         if(playerReference != null && bossReference == null){
             bossReference = Instantiate(bossPrefab, bossSpawnPoint);

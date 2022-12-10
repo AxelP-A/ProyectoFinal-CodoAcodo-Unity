@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class EnemyNave : MonoBehaviour
 {
     float speed = 2f;
     // Para disparar
@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour
     void FireBullet(){
         // Get a Player Reference.
         // Pregunta si existe, sino, devuelve null.
-        Transform playerLocation = GameManager.instance.playerReference != null ? GameManager.instance.playerReference.transform : null;
+        Transform playerLocation = GameManagerNave.instance.playerReference != null ? GameManagerNave.instance.playerReference.transform : null;
         if(playerLocation != null){
             // Si existe
             GameObject bullet = Instantiate(enemyBullet);
@@ -53,18 +53,18 @@ public class Enemy : MonoBehaviour
             activado = true; // Estas 2 lineas es para que no triggeree multiples veces.
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
 
-            if(col.tag.Equals("Player") && !GameManager.instance.CheckPlayerInvulneravility() || col.tag.Equals("PBullet")){
+            if(col.tag.Equals("Player") && !GameManagerNave.instance.CheckPlayerInvulneravility() || col.tag.Equals("PBullet")){
                 // Si choco con el player y no es invulnerable o, si choco con la bala
                 // Hacemos la explosion
-                GameManager.instance.PlayExplotion(transform.position, new Color(255, 255, 255, 255));
+                GameManagerNave.instance.PlayExplotion(transform.position, new Color(255, 255, 255, 255));
                 // Reproducimos el sonido
                 VFXController.instance.PlayVFX(VFXController.VFXName.EXPLOSION);
                 // Roleamos y si hay suerte spawneamos nafta.
-                GameManager.instance.SpawnFuel(transform);
+                GameManagerNave.instance.SpawnFuel(transform);
                 // Roleamos por un power Up
                 PickUpManager.instance.SpawnPickUp(transform);
                 //Sumamos puntos al player
-                GameManager.instance.IncreaseScore(GameManager.instance.pointsPerEnemy);
+                GameManagerNave.instance.IncreaseScore(GameManagerNave.instance.pointsPerEnemy);
                 // Destruimos al enemigo y la bala.
                 Destroy(gameObject); // Destruimos la nave
             } 

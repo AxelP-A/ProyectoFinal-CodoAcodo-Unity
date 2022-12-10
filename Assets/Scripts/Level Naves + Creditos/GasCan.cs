@@ -20,7 +20,7 @@ public class GasCan : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col){
         if(col.tag.Equals("Player")){
             // Agregamos nafta
-            GameManager.instance.IncreaseFuel();
+            GameManagerNave.instance.IncreaseFuel();
             // Hacemos un ruidito
             VFXController.instance.PlayVFX(VFXController.VFXName.PICKUP);
             // Lo destruimos
