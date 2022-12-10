@@ -5,22 +5,24 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
-  - PBullet
-  - EBullet
+  - Ground
+  - BossArenaLimit
+  - WallsLimit
+  - Trap
   - Boss
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Enemy
+  - Ground
+  - PostProcessLayer
+  - Trap
+  - Grass
+  - Gravel
   - 
   - 
   - 
