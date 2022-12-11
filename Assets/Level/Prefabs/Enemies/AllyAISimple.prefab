@@ -117,13 +117,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19daed33242bbb348a96213765c8bc8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  m_FacingRight: 1
   m_DashForce: 25
   enemy: {fileID: 0}
   meleeDist: 1.5
   rangeDist: 5
   dmgValue: 4
   throwableObject: {fileID: 4137325593169041684, guid: 5483b9a65fca4d64ea094b864be611ef, type: 3}
+  speed: 5
+  manaPotionPrefab: {fileID: 7541262417885128001, guid: ce5e56eecb9ff2143a954bd4ba5572c6, type: 3}
 --- !u!212 &5006400026322385276
 SpriteRenderer:
   m_ObjectHideFlags: 0

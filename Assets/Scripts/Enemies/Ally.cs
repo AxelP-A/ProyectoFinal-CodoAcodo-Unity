@@ -191,7 +191,6 @@ public class Ally : BaseEnemy
             anim.SetBool("Hit", true);
             StartCoroutine(ChangeRenderer(0.25f));
             life -= damage;
-            ManaGain.instance.manaDrop(this.transform);
             transform.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
             transform.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(direction * 450f, 100f));
             StartCoroutine(HitTime());
@@ -325,7 +324,16 @@ public class Ally : BaseEnemy
         yield return new WaitForSeconds(0.25f);
         m_Rigidbody2D.velocity = new Vector2(0, m_Rigidbody2D.velocity.y);
         yield return new WaitForSeconds(1f);
+        // Drop Mana
+        ManaDrop();
+        // Destruimos
         Destroy(gameObject);
+
+    }
+    
+    public GameObject manaPotionPrefab;
+    private void ManaDrop(){
+        Instantiate(manaPotionPrefab, transform.position + new Vector3(0f, 1f, 0f), Quaternion.identity);
     }
 
     IEnumerator DashToEvadeTrap()

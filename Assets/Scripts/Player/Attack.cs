@@ -55,7 +55,7 @@ public class Attack : MonoBehaviour
 			canRangeAttack = false;
 				
 			character.mana--;
-			character.HeartsController();
+			character.ManaController();
 			StartCoroutine(RangeAttack());
 			isRangeAttacking = false;
 		}

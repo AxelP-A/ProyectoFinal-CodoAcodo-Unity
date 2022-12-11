@@ -124,5 +124,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c19f158f96a15b2489826e969f248a07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manaBottle: {fileID: 7541262417885128001}
-  player: {fileID: 0}
+  manaGainAmmount: 1

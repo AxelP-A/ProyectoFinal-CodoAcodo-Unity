@@ -59,15 +59,11 @@ public class UIKeysController : MonoBehaviour
                 GameManager.alpha2TimesPressed++;
                 StartCoroutine(ChangeColor(alpha2Image, 0.1f));
             }
-            if(Input.GetKeyDown(KeyCode.Backspace))
+            if(Input.GetKeyDown(KeyCode.Space))
             {
                 GameManager.spacebarTimesPressed++;
                 StartCoroutine(ChangeColor(backSpaceImage, 0.1f));
             } 
-            /*if(Input.GetKeyDown(KeyCode.Backspace))
-            {
-                StartCoroutine(ChangeDualColor(doubleBackSpace1Image, doubleBackSpace2Image, 0.1f));
-            }*/
         }
     }
 
@@ -78,6 +74,9 @@ public class UIKeysController : MonoBehaviour
 		colorImage.color = new Color32(255, 255, 255, 255);
     }
 
+    public void CambiarColorDobleSaltoCorutina(){
+        StartCoroutine(ChangeDualColor(doubleBackSpace1Image, doubleBackSpace2Image, 0.1f));
+    }
     IEnumerator ChangeDualColor(Image colorImage,Image colorImage2, float time)
     {
         colorImage.color = new Color32(0, 255, 0, 255);

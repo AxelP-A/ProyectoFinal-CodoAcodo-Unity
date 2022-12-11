@@ -14,6 +14,8 @@ public class CharacterController2D : MonoBehaviour
 	[SerializeField]  Transform m_WallCheck;
 	SpriteRenderer spriteRenderer;
 
+	[SerializeField] UIKeysController UIKeysRef;
+
 	const float k_GroundedRadius = .2f;
 	public bool m_Grounded;
 	private Rigidbody2D m_Rigidbody2D;
@@ -45,7 +47,6 @@ public class CharacterController2D : MonoBehaviour
 	private float jumpWallDistX = 0; 
 	private bool limitVelOnWallJump = false; 
 	bool jumpState;
-	bool doubleJumpState;
 	bool isHealing;
 
     [SerializeField]  int heartsQuantity;
@@ -149,7 +150,7 @@ public class CharacterController2D : MonoBehaviour
         RangeAttackAbility();*/
         DashAbility(isDashing);
         JumpAbility(jumpState);
-        DoubleJumpAbility(doubleJumpState);
+        DJAbilityDisplayUpdate(jumpState);
 	}
 
 	private void FixedUpdate()
@@ -170,6 +171,7 @@ public class CharacterController2D : MonoBehaviour
 						if(doubleJumpUnlocked)
 						{
 							canDoubleJump = true;
+							doubleJumpImage.fillAmount = 1;
 						}
 
 					
@@ -276,7 +278,8 @@ public class CharacterController2D : MonoBehaviour
 				m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
 				if(doubleJumpUnlocked)
 				{
-				canDoubleJump = true;
+					canDoubleJump = true;
+					doubleJumpImage.fillAmount = 1;
 				}
 				particleJumpDown.Play();
 				particleJumpUp.Play();
@@ -284,7 +287,8 @@ public class CharacterController2D : MonoBehaviour
 			else if (!m_Grounded && jump && canDoubleJump && !isWallSliding)
 			{
 				canDoubleJump = false;
-				DoubleJumpAbility(jump);
+				UIKeysRef.CambiarColorDobleSaltoCorutina();
+				DJAbilityDisplayUpdate(jump);
 				m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 0);
 				m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce / 1.2f));
 				animator.SetBool("IsDoubleJumping", true);
@@ -300,6 +304,7 @@ public class CharacterController2D : MonoBehaviour
 					if(doubleJumpUnlocked)
 					{
 						canDoubleJump = true;
+						doubleJumpImage.fillAmount = 1;
 
 					}
 					animator.SetBool("IsWallSliding", true);
@@ -358,7 +363,8 @@ public class CharacterController2D : MonoBehaviour
 		m_WallCheck.localPosition = new Vector3(Mathf.Abs(m_WallCheck.localPosition.x), m_WallCheck.localPosition.y, 0);
 		if(doubleJumpUnlocked)
 		{
-			canDoubleJump = true;			
+			canDoubleJump = true;
+			doubleJumpImage.fillAmount = 1;			
 		}
 	}
 
@@ -575,22 +581,24 @@ public class CharacterController2D : MonoBehaviour
         }
     }
 
-    public void DoubleJumpAbility(bool jump)
+    public void DJAbilityDisplayUpdate(bool jumpedOnce)
     {
-        if(doubleJumpUnlocked && jump && canDoubleJump && !m_Grounded && !doubleJumpIsCooldown)
-        {
-            doubleJumpIsCooldown = true;
-            doubleJumpImage.fillAmount = 1;
-        }
-        if(doubleJumpIsCooldown)
-        {
-            if(canDoubleJump && doubleJumpUnlocked)
-            {
-             doubleJumpImage.fillAmount= 0;
-            doubleJumpIsCooldown = false;
-            }
-        }
+		//print("VALUE:" + doubleJumpImage.fillAmount);
+		if(doubleJumpUnlocked){
+			// 0 visible 1 gris
+			//doubleJumpImage.fillAmount = 0;
+			if(jumpedOnce && canDoubleJump)
+			{
+				doubleJumpImage.fillAmount = 0;
+			} else {
+				doubleJumpImage.fillAmount = 1;
+			}
+		}else { // Si no esta desbloqueado.
+			doubleJumpImage.fillAmount = 1;
+		}
     }
+
+	
 
 
 	IEnumerator ChangeRenderer(float time)
