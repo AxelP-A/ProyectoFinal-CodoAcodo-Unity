@@ -20,8 +20,8 @@ public class FMODAudioPlayer : MonoBehaviour
     private FMOD.Studio.EventInstance itemInstance;
     public FMODUnity.EventReference itemEvent;
 
-    private FMOD.Studio.EventInstance introductoryNarrativeInstance;
-    public FMODUnity.EventReference introductoryNarrativeEvent;
+    /*private FMOD.Studio.EventInstance introductoryNarrativeInstance;
+    public FMODUnity.EventReference introductoryNarrativeEvent;*/
 
     private FMOD.Studio.EventInstance bossFightStartInstance;
     public FMODUnity.EventReference bossFightStartEvent;
@@ -62,7 +62,7 @@ public class FMODAudioPlayer : MonoBehaviour
         ambienceInstance = FMODUnity.RuntimeManager.CreateInstance(ambienceEvent);
         itemInstance = FMODUnity.RuntimeManager.CreateInstance(itemEvent);
         bossDeathInstance = FMODUnity.RuntimeManager.CreateInstance(bossDeathEvent);
-        introductoryNarrativeInstance = FMODUnity.RuntimeManager.CreateInstance(introductoryNarrativeEvent);
+        //introductoryNarrativeInstance = FMODUnity.RuntimeManager.CreateInstance(introductoryNarrativeEvent);
         bossFightStartInstance = FMODUnity.RuntimeManager.CreateInstance(bossFightStartEvent);
         distortionInstance = FMODUnity.RuntimeManager.CreateInstance(distortionEvent);
 	}
@@ -124,7 +124,7 @@ public class FMODAudioPlayer : MonoBehaviour
      {
         isPaused = !isPaused;
         ambienceInstance.setPaused(isPaused);
-        introductoryNarrativeInstance.setPaused(isPaused);
+        //introductoryNarrativeInstance.setPaused(isPaused);
      }
 
     public void PlayItemSound()
@@ -173,11 +173,11 @@ public class FMODAudioPlayer : MonoBehaviour
 
 
 
-    public void PlayIntroductoryNarrativeSound()
+   /* public void PlayIntroductoryNarrativeSound()
     {
         introductoryNarrativeInstance.start();
         //FMODUnity.RuntimeManager.PlayOneShotAttached(introductoryNarrativeEvent, gameObject);
-    }   
+    }  */ 
 
   /*  public void PlaySong(FMODUnity.EventReference event)
     {
