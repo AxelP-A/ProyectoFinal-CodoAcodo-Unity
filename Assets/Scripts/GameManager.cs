@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
      {
         if (blackScreen)
         {
-            myCG.alpha = myCG.alpha - Time.deltaTime / 18;
+            myCG.alpha = myCG.alpha - Time.deltaTime / 3;
             if (myCG.alpha <= 0)
             {
                 myCG.alpha = 0;
@@ -121,7 +121,7 @@ public class GameManager : MonoBehaviour
         {
             playerProtection.SetActive(true);
             //audioListener.enabled = false;
-            FMODAudioPlayer.Instance.PlayIntroductoryNarrativeSound();
+            //FMODAudioPlayer.Instance.PlayIntroductoryNarrativeSound();
             startGameBlackScreen.SetActive(true);
             myCG.alpha = 1;
             characterController2d.SetIfCanMove(false);
