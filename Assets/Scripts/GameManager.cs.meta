@@ -10,7 +10,7 @@ MonoImporter:
   - pauseMenuUI: {instanceID: 0}
   - playerProtection: {instanceID: 0}
   - mainCamera: {instanceID: 0}
-  executionOrder: 200
+  executionOrder: 20
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 
