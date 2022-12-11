@@ -59,7 +59,7 @@ public class CharacterController2D : MonoBehaviour
     [SerializeField]  Sprite fullManaPotion;
     [SerializeField]  Sprite emptyManaPotion;
 	public int mana = 5;
-
+UIKeysController uiKeysController;
 	private enum CURRENT_TERRAIN { GRASS, GRAVEL};
     [SerializeField]
     private CURRENT_TERRAIN currentTerrain;
@@ -99,7 +99,7 @@ public class CharacterController2D : MonoBehaviour
 
     [Header("DoubleJumpAbility")]
     public Image doubleJumpImage;
-    bool doubleJumpIsCooldown = false;
+    //bool doubleJumpIsCooldown = false;
     //public KeyCode keyDoubleJump;    
 
 
@@ -141,6 +141,7 @@ public class CharacterController2D : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Alpha2) && life < heartsQuantity && mana > 0 && m_Grounded && !isHealing)
 		{
 			isHealing = true;
+			GameManager.timesHealed++;
 			StartCoroutine(ChangeRenderer(0.25f));
 			StartCoroutine(Heal());
 		}
@@ -246,6 +247,7 @@ public class CharacterController2D : MonoBehaviour
 		if (canMove) {
 			if (dash && canDash && !isWallSliding)
 			{
+				GameManager.quantityOfDashes++;
 				StartCoroutine(DashCooldown());
 			}
 
@@ -273,6 +275,7 @@ public class CharacterController2D : MonoBehaviour
 			if (m_Grounded && jump)
 			{
 				jumpState = jump;
+				GameManager.quantityOfJumps++;
 				JumpAnimation();
 				m_Grounded = false;
 				m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
@@ -287,6 +290,7 @@ public class CharacterController2D : MonoBehaviour
 			else if (!m_Grounded && jump && canDoubleJump && !isWallSliding)
 			{
 				canDoubleJump = false;
+				GameManager.quantityOfDoubleJumps++;
 				UIKeysRef.CambiarColorDobleSaltoCorutina();
 				DJAbilityDisplayUpdate(jump);
 				m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 0);
@@ -327,6 +331,7 @@ public class CharacterController2D : MonoBehaviour
 				if (jump && isWallSliding && canJumpInWall)
 				{
 					jumpState = jump;
+					GameManager.quantityOfJumps++;
 					JumpAnimation();
 					m_Rigidbody2D.velocity = new Vector2(0f, 0f);
 					m_Rigidbody2D.AddForce(new Vector2(transform.localScale.x * m_JumpForce * 1.5f, m_JumpForce));
@@ -381,6 +386,7 @@ public class CharacterController2D : MonoBehaviour
 		if (!invincible)
 		{
 			animator.SetBool("Hit", true);
+			GameManager.hitsGivenToYou++;
 			life -= damage;
 			HeartsController();
 			Vector2 damageDir = Vector3.Normalize(transform.position - position) * 40f ;
@@ -574,7 +580,7 @@ public class CharacterController2D : MonoBehaviour
             jumpisCooldown = true;
             jumpImage.fillAmount = 1;
         }
-        if(m_Grounded && jumpisCooldown)
+        if((m_Grounded || m_IsWall) && jumpisCooldown)
         {
             jumpImage.fillAmount = 0;
 			jumpisCooldown = false;

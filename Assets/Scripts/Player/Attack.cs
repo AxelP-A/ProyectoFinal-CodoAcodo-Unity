@@ -41,6 +41,7 @@ public class Attack : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Mouse0) && canAttack)
 		{
 			isAttacking = true;
+			GameManager.simpleAttacksDone++;
 			character.AttackAbility(isAttacking);
 			canAttack = false;
 			animator.SetBool("IsAttacking", true);
@@ -51,6 +52,7 @@ public class Attack : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Alpha1) && canRangeAttack && character.mana > 0)
 		{
 			isRangeAttacking = true;
+			GameManager.rangedAttacksDone++;
 			character.RangeAttackAbility(isRangeAttacking);
 			canRangeAttack = false;
 				
