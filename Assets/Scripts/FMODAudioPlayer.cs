@@ -55,7 +55,7 @@ public class FMODAudioPlayer : MonoBehaviour
 		{
 			Destroy(gameObject);
 		}
-		DontDestroyOnLoad (gameObject);
+		//DontDestroyOnLoad (gameObject);
 
         //jumpInstance = FMODUnity.RuntimeManager.CreateInstance(jumpEvent);
         walkInstance = FMODUnity.RuntimeManager.CreateInstance(walkEvent);

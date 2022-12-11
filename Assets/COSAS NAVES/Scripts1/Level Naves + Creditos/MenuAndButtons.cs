@@ -33,6 +33,7 @@ public class MenuAndButtons : MonoBehaviour
     }
 
     public void ShowGameOverScreen(){
+        MakeMouseVisible();
         gameOverScreen.SetActive(true);
         CanvasGroup panel = gameOverScreen.GetComponent<CanvasGroup>();
         if(fadeInCoroutine == null){
@@ -41,6 +42,7 @@ public class MenuAndButtons : MonoBehaviour
     }
 
     public void ShowVictoryScreen(){
+        MakeMouseVisible();
         winScreen.SetActive(true);
         CanvasGroup panel = winScreen.GetComponent<CanvasGroup>();
         if(fadeInCoroutine == null){
@@ -48,7 +50,14 @@ public class MenuAndButtons : MonoBehaviour
         }
     }
 
+    void MakeMouseVisible(){
+        if(!Cursor.visible){
+            Cursor.visible = true;
+        }
+    }
+
     public void TogglePauseScreen(){
+        MakeMouseVisible();
         if(fadeInCoroutine != null || fadeOutCoroutine != null)
         {
             return; // SI se esta ejecutando algo ya, no hacer nada.
