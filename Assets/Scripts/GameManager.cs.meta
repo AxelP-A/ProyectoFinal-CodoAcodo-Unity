@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 979656668bdfb284aaa58ef4712017eb
+guid: f0a5192d5fd075b468eda4d89a2ed9ac
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
-  executionOrder: 0
+  defaultReferences:
+  - myCG: {instanceID: 0}
+  - startGameBlackScreen: {instanceID: 0}
+  - player: {instanceID: 0}
+  - pauseMenuUI: {instanceID: 0}
+  - playerProtection: {instanceID: 0}
+  - mainCamera: {instanceID: 0}
+  executionOrder: 200
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 
