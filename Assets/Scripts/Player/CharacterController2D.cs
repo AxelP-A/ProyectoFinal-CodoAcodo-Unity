@@ -640,8 +640,10 @@ UIKeysController uiKeysController;
 
 	IEnumerator Heal()
 	{
+		Animator anim = transform.GetComponent<Animator>();
 		m_Rigidbody2D.velocity = new Vector2(0, m_Rigidbody2D.velocity.y);
 		canMove = false;
+		anim.SetBool("IsHealing", true);
 		GetComponent<Attack>().enabled = false;
 		yield return new WaitForSeconds(2f);
 		mana--;
@@ -650,6 +652,7 @@ UIKeysController uiKeysController;
 		HeartsController();
 		GetComponent<Attack>().enabled = true;
 		isHealing = false;
+		anim.SetBool("IsHealing", false);
 		canMove = true;
 	}
 	
