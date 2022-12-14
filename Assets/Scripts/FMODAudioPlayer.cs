@@ -104,10 +104,10 @@ public class FMODAudioPlayer : MonoBehaviour
         //FMODUnity.RuntimeManager.PlayOneShotAttached(walkEvent, gameObject);
     }
 
-    /*public void StopWalkingSound()
+    public void StopWalkingSound()
     {
-        walkInstance.stop(Studio.STOP_MODE.IMMEDIATE);
-    }*/
+        walkInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+    }
 
     public void PlayAmbienceSound()
     {

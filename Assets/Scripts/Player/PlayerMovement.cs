@@ -30,7 +30,6 @@ public class PlayerMovement : MonoBehaviour {
                 controller.SelectAndPlayFootstep();
                 timer = 0.0f;
             }
-
             timer += Time.deltaTime;
         }
 

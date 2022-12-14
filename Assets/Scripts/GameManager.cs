@@ -145,6 +145,25 @@ public class GameManager : MonoBehaviour
     }*/
 
 
+    public void DestroyAndSaveData()
+    {
+        PlayerPrefs.SetInt("deathCount", deathCount);
+        PlayerPrefs.SetInt("simpleAttacksDone", simpleAttacksDone);
+        PlayerPrefs.SetInt("rangedAttacksDone", rangedAttacksDone);
+        PlayerPrefs.SetInt("timesHealed", timesHealed);
+        PlayerPrefs.SetInt("quantityOfDashes", quantityOfDashes);
+        PlayerPrefs.SetInt("quantityOfJumps", quantityOfJumps);
+        PlayerPrefs.SetInt("quantityOfDoubleJumps", quantityOfDoubleJumps);
+        PlayerPrefs.SetInt("hitsGivenToYou", hitsGivenToYou);
+        PlayerPrefs.SetInt("timesPlayed", timesPlayed);
+        PlayerPrefs.SetInt("spacebarTimesPressed", spacebarTimesPressed);
+        PlayerPrefs.SetInt("mouseLeftTimesPressed", mouseLeftTimesPressed);
+        PlayerPrefs.SetInt("mouseRightTimesPressed", mouseRightTimesPressed);
+        PlayerPrefs.SetInt("alpha1TimesPressed", alpha1TimesPressed);
+        PlayerPrefs.SetInt("alpha2TimesPressed", alpha2TimesPressed);
+        Destroy(gameObject);
+    }
+
 
         
 }

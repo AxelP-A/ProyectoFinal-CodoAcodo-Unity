@@ -34,6 +34,7 @@ public class ReloadScene : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         endOfRun.SetActive(true);
         FMODAudioPlayer.Instance.StartDistortionSound();
+        GameManager.Instance.DestroyAndSaveData();
         yield return new WaitForSeconds(3f);
         SceneManager.LoadScene(2);
     }

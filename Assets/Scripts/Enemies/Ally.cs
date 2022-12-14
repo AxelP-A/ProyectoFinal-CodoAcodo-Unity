@@ -22,7 +22,7 @@ public class Ally : BaseEnemy
     bool endDecision = false;
     float distToPlayer;
     float distToPlayerY;
-    int life = 10;
+    int life = 5;
     public float speed = 5f;
     bool isDashing = false;
 

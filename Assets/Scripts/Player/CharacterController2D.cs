@@ -476,7 +476,7 @@ UIKeysController uiKeysController;
         }
     }
 
-	 public void SelectAndPlayFootstep()
+	public void SelectAndPlayFootstep()
     {     
         switch (currentTerrain)
         {
@@ -501,7 +501,7 @@ UIKeysController uiKeysController;
 
 
 
-	 public void AttackAbility(bool attack)
+	public void AttackAbility(bool attack)
     {
         if(attack &&!attackIsCooldown)
         {
