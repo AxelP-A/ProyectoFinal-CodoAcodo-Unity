@@ -10,8 +10,21 @@ public class MenuAndButtons : MonoBehaviour
     public GameObject gameOverScreen;
     public GameObject winScreen;
     public GameObject warningScreen;
+    public GameObject tutorialScreen;
     public float fadeInTime; // Tiempo que tarda en aparecer el GameOver
     public float fadeTimeMenu; // Tiempo del fade del menu.
+    int jugoNivel;
+
+    void Awake(){
+        jugoNivel = PlayerPrefs.GetInt("JugoNivel", 0);
+        if(jugoNivel == 0){
+        Time.timeScale = 0;
+        }
+        if(jugoNivel == 1){
+            // Escondemos el tuto
+            tutorialScreen.SetActive(false);
+        }
+    }
 
     public void Retry(){
         // Recargamos la escena.
@@ -29,6 +42,7 @@ public class MenuAndButtons : MonoBehaviour
 
     public void Continue(CanvasGroup panel){
         Time.timeScale = 1;
+        PlayerPrefs.SetInt("JugoNivel", 1);
         fadeOutCoroutine = StartCoroutine(FadeOut(panel, fadeTimeMenu));
     }
 
@@ -114,6 +128,9 @@ public class MenuAndButtons : MonoBehaviour
         panel.interactable = false;
         yield return null;
         pauseMenu.SetActive(false); // Lo desactivo
+        if(tutorialScreen.activeSelf == true){
+            tutorialScreen.SetActive(false);
+        }
         fadeOutCoroutine = null;
     }
 
