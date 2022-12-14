@@ -13,14 +13,18 @@ public class UIKeysController : MonoBehaviour
     public GameObject backSpace;
     public GameObject doubleBackSpace1;
     public GameObject doubleBackSpace2;
-
+    //public GameObject leftMovement;
+    //public GameObject rightMovement;
     Image leftMouseImage;
     Image rightMouseImage;
     Image alpha1Image;
     Image alpha2Image;
     Image backSpaceImage;   
     Image doubleBackSpace1Image;
-    Image doubleBackSpace2Image;    
+    Image doubleBackSpace2Image;  
+    //Image leftMovementImage;
+    //Image rightMovementtImage;
+
 
     // Start is called before the first frame update
     void Start()
