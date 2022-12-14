@@ -459,21 +459,24 @@ UIKeysController uiKeysController;
 
 	void DetermineTerrain()
     {
-        RaycastHit[] hit;
-
-        hit = Physics.RaycastAll(transform.position, Vector3.down, 10.0f);
-
-        foreach (RaycastHit rayhit in hit)
-        {
-            if (rayhit.transform.gameObject.layer == LayerMask.NameToLayer("Gravel"))
+        //RaycastHit[] hit;
+		RaycastHit2D hit;
+		hit = Physics2D.Raycast(transform.position, Vector2.down, 5f);
+        //hit = Physics.RaycastAll(transform.position, Vector3.down, 10.0f);
+		Debug.Log(hit.transform.gameObject.layer + " ESTO ES LO QUE TOMA EL RAYCAST");
+        //foreach (RaycastHit rayhit in hit)
+        //{
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Gravel"))
             {
                 currentTerrain = CURRENT_TERRAIN.GRAVEL;
+				Debug.Log("Estoy en el terreno 1" + currentTerrain);
             }
-            else if (rayhit.transform.gameObject.layer == LayerMask.NameToLayer("Grass"))
+            else if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Grass"))
             {
                 currentTerrain = CURRENT_TERRAIN.GRASS;
+				Debug.Log("Estoy en el terreno 2" + currentTerrain);
             }
-        }
+       // }
     }
 
 	public void SelectAndPlayFootstep()
@@ -482,18 +485,20 @@ UIKeysController uiKeysController;
         {
             case CURRENT_TERRAIN.GRAVEL:
 				FMODAudioPlayer.Instance.setFloorType("gravel");
-               // FMODAudioPlayer.Instance.PlayWalkSound();
-				FMODAudioPlayer.Instance.WaitToStopFootsteps(0.3f);
+                FMODAudioPlayer.Instance.PlayWalkSound();
+				Debug.Log("Estoy en el terreno 3" + currentTerrain);
+				//FMODAudioPlayer.Instance.WaitToStopFootsteps(0.3f);
 
                 break;
 
             case CURRENT_TERRAIN.GRASS:
 				FMODAudioPlayer.Instance.setFloorType("sand");
-               // FMODAudioPlayer.Instance.PlayWalkSound();
-				FMODAudioPlayer.Instance.WaitToStopFootsteps(0.3f);
+                FMODAudioPlayer.Instance.PlayWalkSound();
+				Debug.Log("Estoy en el terreno 4" + currentTerrain);
+				//FMODAudioPlayer.Instance.WaitToStopFootsteps(0.3f);
                 break;
             default:
-               // FMODAudioPlayer.Instance.PlayWalkSound();
+                FMODAudioPlayer.Instance.PlayWalkSound();
 				//FMODAudioPlayer.Instance.WaitToStopFootsteps(0.3f);
                 break;
         }

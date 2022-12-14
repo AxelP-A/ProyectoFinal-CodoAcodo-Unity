@@ -99,8 +99,7 @@ public class FMODAudioPlayer : MonoBehaviour
     public void PlayWalkSound()
     {
         walkInstance.start();
- 
-        //walkInstance.release();        
+        walkInstance.release();        
         //FMODUnity.RuntimeManager.PlayOneShotAttached(walkEvent, gameObject);
     }
 
