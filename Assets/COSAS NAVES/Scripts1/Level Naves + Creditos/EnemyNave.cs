@@ -65,6 +65,7 @@ public class EnemyNave : MonoBehaviour
                 PickUpManager.instance.SpawnPickUp(transform);
                 //Sumamos puntos al player
                 GameManagerNave.instance.IncreaseScore(GameManagerNave.instance.pointsPerEnemy);
+                IncreaseEnemyCount();
                 // Destruimos al enemigo y la bala.
                 Destroy(gameObject); // Destruimos la nave
             } 
@@ -75,5 +76,13 @@ public class EnemyNave : MonoBehaviour
             }
             //Debug.Log("Enemigo destruido");
         }
+    }
+
+    void IncreaseEnemyCount()
+    {
+        int holder = PlayerPrefs.GetInt("killedEnemies");
+        holder ++;
+        Debug.Log(holder);
+        PlayerPrefs.SetInt("killedEnemies", holder);
     }
 }

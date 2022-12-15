@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     public static int mouseRightTimesPressed = 0;
     public static int alpha1TimesPressed = 0;
     public static int alpha2TimesPressed = 0;
+    public static int killCount = 0;
 
     public static GameManager Instance = null;
 
@@ -161,6 +162,8 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("mouseRightTimesPressed", mouseRightTimesPressed);
         PlayerPrefs.SetInt("alpha1TimesPressed", alpha1TimesPressed);
         PlayerPrefs.SetInt("alpha2TimesPressed", alpha2TimesPressed);
+        PlayerPrefs.SetInt("killedEnemies", killCount);
+        Debug.Log(killCount + " CANTIDAD DE ENEMIGOS ASESINADOS EN DESTROY AND SAVE");
         Destroy(gameObject);
     }
 

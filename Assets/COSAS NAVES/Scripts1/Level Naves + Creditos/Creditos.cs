@@ -20,6 +20,11 @@ public class Creditos : MonoBehaviour
 
     Animator anim;
     // Start is called before the first frame update
+    void Awake()
+    {
+        Debug.Log(PlayerPrefs.GetInt("killedEnemies") + " CANTIDAD DE ENEMIGOS ASESINADOS EN EL AWAKE.");
+    }
+
     void Start()
     {
         anim = transform.GetComponent<Animator>();
@@ -65,7 +70,7 @@ public class Creditos : MonoBehaviour
     }
 
     void DisplayStats(){
-        killsT.text = deathCount.ToString();
+        killsT.text = killedEnemies.ToString();
         meleeT.text = simpleAttacksDone.ToString();
         rangeT.text = rangedAttacksDone.ToString();
         receivedT.text = hitsGivenToYou.ToString();

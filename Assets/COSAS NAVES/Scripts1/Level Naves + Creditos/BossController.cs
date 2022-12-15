@@ -174,9 +174,17 @@ public class BossController : MonoBehaviour
             VFXController.instance.PlayVFX(VFXController.VFXName.EXPLOSION);
             yield return new WaitForSeconds(0.4f);
         }
+        IncreaseEnemyCount();
         // Triggereamos el win despues de las explosiones.
         GameManagerNave.instance.TriggerVictory();
         yield return null;    
+    }
+    void IncreaseEnemyCount()
+    {
+        int holder = PlayerPrefs.GetInt("killedEnemies");
+        holder ++;
+        Debug.Log(holder);
+        PlayerPrefs.SetInt("killedEnemies", holder);
     }
 
 }

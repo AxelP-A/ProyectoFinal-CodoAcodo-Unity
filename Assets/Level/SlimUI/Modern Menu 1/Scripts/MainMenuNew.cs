@@ -9,6 +9,8 @@ namespace SlimUI.ModernMenu{
 	public class MainMenuNew : MonoBehaviour {
 		Animator CameraObject;
 
+		public GameObject fondo;
+
 		[Header("Loaded Scene")]
 		[Tooltip("The name of the scene in the build settings that will load")]
 		public string sceneName = ""; 
@@ -132,6 +134,7 @@ namespace SlimUI.ModernMenu{
 		public void NewGame(){
 			if(sceneName != ""){
 				Debug.Log(sceneName);
+				fondo.SetActive(false);
 				StartCoroutine(LoadAsynchronously(sceneName));
 			}
 		}

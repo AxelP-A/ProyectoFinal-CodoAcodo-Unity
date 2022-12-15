@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour {
 		horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 		animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
-		if (horizontalMove != 0 && controller.m_Grounded)
+		/*if (horizontalMove != 0 && controller.m_Grounded)
         {       
             if (timer > footstepSpeed)
             {
@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour {
                 timer = 0.0f;
             }
             timer += Time.deltaTime;
-        }
+        }*/
 
 		if (Input.GetKeyDown(KeyCode.Space))
 		{

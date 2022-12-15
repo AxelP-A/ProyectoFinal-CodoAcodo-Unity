@@ -22,10 +22,19 @@ public class Curita : MonoBehaviour
         if(col.tag.Equals("Player")){
             // Agregamos el escudo
             PickUpManager.instance.HealPlayer();
+            IncreaseHealingCount();
             // Hacemos un ruidito
             VFXController.instance.PlayVFX(VFXController.VFXName.PICKUP);
             // Lo destruimos
             Destroy(gameObject);
         }
+    }
+
+    void IncreaseHealingCount()
+    {
+        int holder = PlayerPrefs.GetInt("timesHealed");
+        holder ++;
+        PlayerPrefs.SetInt("timesHealed", holder);
+        Debug.Log(holder + " SE CURÓ EN EL NIVEL DE LAS NAVES");
     }
 }

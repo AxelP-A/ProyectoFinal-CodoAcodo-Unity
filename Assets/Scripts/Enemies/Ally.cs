@@ -56,7 +56,11 @@ public class Ally : BaseEnemy
             Flip();
         if (life <= 0)
         {
-            StartCoroutine(DestroyEnemy());
+            if(destroyEnemy == null)
+			{
+				destroyEnemy = StartCoroutine(DestroyEnemy());
+				//StartCoroutine(DestroyEnemy());
+			}
         }
         else if (enemy != null)
         {
@@ -314,9 +318,13 @@ public class Ally : BaseEnemy
         EndDecision();
     }
 
+
+    Coroutine destroyEnemy = null;
+
     IEnumerator DestroyEnemy()
     {
         CapsuleCollider2D capsule = GetComponent<CapsuleCollider2D>();
+        GameManager.killCount++;
         capsule.size = new Vector2(1f, 0.25f);
         capsule.offset = new Vector2(0f, -0.8f);
         capsule.direction = CapsuleDirection2D.Horizontal;

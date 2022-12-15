@@ -42,7 +42,11 @@ public class BringerOfDeath : BaseEnemy
 		DetectingEnemy();
 		if (life <= 0)
 		{
-			StartCoroutine(DestroyEnemy());
+			if(destroyEnemy == null)
+			{
+				destroyEnemy = StartCoroutine(DestroyEnemy());
+				//StartCoroutine(DestroyEnemy());
+			}
 		}
 		else if (enemy != null) 
 		{
@@ -273,9 +277,12 @@ public class BringerOfDeath : BaseEnemy
 		EndDecision();
 	}*/
 
+	Coroutine destroyEnemy = null;
+
 	IEnumerator DestroyEnemy()
 	{
 		bossFightEvent.BossDefeated();
+		GameManager.killCount++;
 		FMODAudioPlayer.Instance.StopBossStartFightSound();
 		FMODAudioPlayer.Instance.PlayBossDeathSound();
 		CapsuleCollider2D capsule = GetComponent<CapsuleCollider2D>();
