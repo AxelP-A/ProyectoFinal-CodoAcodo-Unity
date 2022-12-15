@@ -16,6 +16,7 @@ public class MenuAndButtons : MonoBehaviour
     int jugoNivel;
 
     void Awake(){
+        Cursor.visible = true;
         jugoNivel = PlayerPrefs.GetInt("JugoNivel", 0);
         if(jugoNivel == 0){
         Time.timeScale = 0;
