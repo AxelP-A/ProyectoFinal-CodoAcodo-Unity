@@ -476,7 +476,7 @@ public class CharacterController2D : MonoBehaviour
 		
         if (hit.collider != null)
         {
-            Debug.DrawRay(m_GroundCheck.position, hit.point, Color.red);
+            //Debug.DrawRay(m_GroundCheck.position, hit.point, Color.red);
             //Debug.Log(hit.transform.gameObject.layer + " ESTO ES LO QUE TOMA EL RAYCAST");
 			//Debug.Log(hit.point.normalized + " VECTOR");
             //foreach (RaycastHit rayhit in hit)
@@ -508,7 +508,7 @@ public class CharacterController2D : MonoBehaviour
             case CURRENT_TERRAIN.GRAVEL:
                 FMODAudioPlayer.Instance.setFloorType("gravel");
                 FMODAudioPlayer.Instance.PlayWalkSound();
-                Debug.Log("Estoy en el terreno 3" + currentTerrain);
+                //Debug.Log("Estoy en el terreno 3" + currentTerrain);
                 //FMODAudioPlayer.Instance.WaitToStopFootsteps(0.3f);
 
                 break;
@@ -516,7 +516,7 @@ public class CharacterController2D : MonoBehaviour
             case CURRENT_TERRAIN.GRASS:
                 FMODAudioPlayer.Instance.setFloorType("sand");
                 FMODAudioPlayer.Instance.PlayWalkSound();
-                Debug.Log("Estoy en el terreno 4" + currentTerrain);
+               //Debug.Log("Estoy en el terreno 4" + currentTerrain);
                 //FMODAudioPlayer.Instance.WaitToStopFootsteps(0.3f);
                 break;
             default:

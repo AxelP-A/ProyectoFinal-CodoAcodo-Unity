@@ -32,7 +32,7 @@ public class MenuAndButtons : MonoBehaviour
         holder = PlayerPrefs.GetInt("deathCount",0);
         holder++;
         PlayerPrefs.SetInt("deathCount",holder);
-        Debug.Log(holder + " SE ESTÁ MURIENDO EN EL NIVEL DE NAVES");
+        //Debug.Log(holder + " SE ESTÁ MURIENDO EN EL NIVEL DE NAVES");
         // Recargamos la escena.
         SceneManager.LoadScene("Level 1");
     }

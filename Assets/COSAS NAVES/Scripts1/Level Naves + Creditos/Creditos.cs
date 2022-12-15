@@ -22,7 +22,7 @@ public class Creditos : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Debug.Log(PlayerPrefs.GetInt("killedEnemies") + " CANTIDAD DE ENEMIGOS ASESINADOS EN EL AWAKE.");
+       // Debug.Log(PlayerPrefs.GetInt("killedEnemies") + " CANTIDAD DE ENEMIGOS ASESINADOS EN EL AWAKE.");
     }
 
     void Start()

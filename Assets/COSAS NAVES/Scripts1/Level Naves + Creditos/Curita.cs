@@ -35,6 +35,6 @@ public class Curita : MonoBehaviour
         int holder = PlayerPrefs.GetInt("timesHealed");
         holder ++;
         PlayerPrefs.SetInt("timesHealed", holder);
-        Debug.Log(holder + " SE CURÓ EN EL NIVEL DE LAS NAVES");
+        //Debug.Log(holder + " SE CURÓ EN EL NIVEL DE LAS NAVES");
     }
 }

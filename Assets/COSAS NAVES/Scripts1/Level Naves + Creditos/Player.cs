@@ -125,6 +125,10 @@ public class Player : MonoBehaviour
             triggerInvul = StartCoroutine(TriggerInvul());
         }
 
+        int holder = PlayerPrefs.GetInt("hitsGivenToYou", 0);
+        holder++;
+        PlayerPrefs.SetInt("hitsGivenToYou", holder);
+        
         // SI tiene escudos
         if(shieldAmmount > 0){ 
             shieldAmmount -= 1;

@@ -82,7 +82,7 @@ public class EnemyNave : MonoBehaviour
     {
         int holder = PlayerPrefs.GetInt("killedEnemies");
         holder ++;
-        Debug.Log(holder);
+        //Debug.Log(holder);
         PlayerPrefs.SetInt("killedEnemies", holder);
     }
 }
