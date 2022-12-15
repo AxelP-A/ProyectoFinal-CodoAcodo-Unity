@@ -30,6 +30,7 @@ public class MenuAndButtons : MonoBehaviour
     public void Retry(){
         int holder;
         holder = PlayerPrefs.GetInt("deathCount",0);
+        holder++;
         PlayerPrefs.SetInt("deathCount",holder);
         Debug.Log(holder + " SE ESTÁ MURIENDO EN EL NIVEL DE NAVES");
         // Recargamos la escena.

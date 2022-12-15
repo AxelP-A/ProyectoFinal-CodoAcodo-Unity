@@ -164,6 +164,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("alpha2TimesPressed", alpha2TimesPressed);
         PlayerPrefs.SetInt("killedEnemies", killCount);
         Debug.Log(killCount + " CANTIDAD DE ENEMIGOS ASESINADOS EN DESTROY AND SAVE");
+        Debug.Log(deathCount + " CANTIDAD DE VECES QUE ME MORÍ EN NIVEL 1");
         Destroy(gameObject);
     }
 
